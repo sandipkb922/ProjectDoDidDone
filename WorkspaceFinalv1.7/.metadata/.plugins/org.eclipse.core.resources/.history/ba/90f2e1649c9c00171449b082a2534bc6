@@ -1,0 +1,45 @@
+$(document).ready(function(){
+	stopLoad();
+	
+	Date.prototype.toDateInputValue = (function() {
+	    var local = new Date(this);
+	    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	    return local.toJSON().slice(0,10);
+	});
+
+	$("#dateSource").val(new Date().toDateInputValue());
+	currentDate = $("#dateSource").val();
+	
+	$("#search").click(function(){
+		currentDate = $("#dateSource").val();
+    	searchDB();
+    });
+    
+    
+    $("#create").click(function(){
+    	if(!($("#eventName").val() === "")) {
+    		createRecord();
+    		document.getElementById("eventName").value = "";
+    	}
+    });  
+});
+
+var stateChangeNext = function(buttonId) {
+	  console.log("Button Clicked: " + buttonId);
+	  updateRecord(buttonId, "next");	  
+};
+
+var stateChangePrevious = function(buttonId) {
+	  console.log("Button Clicked: " + buttonId);
+	  updateRecord(buttonId, "previous");	  
+};
+
+var deleteEvent = function(buttonId) {
+	  console.log("Button Clicked: " + buttonId);
+	  deleteRecord(buttonId);	  
+};
+
+var updateEventName = function(eventId, currentEventName) {
+	
+};
+
